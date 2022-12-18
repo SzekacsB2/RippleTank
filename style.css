@@ -12,8 +12,14 @@ body{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+@media (max-width: 500px) {
+    .container {
+      flex-direction: column;
+    }
 }
 .canvas{
     border: none;
