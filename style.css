@@ -6,8 +6,7 @@ body{
     --black: #222222;
     --dark: #434242;
     --white: #F3EFE0;
-    --color: #22A39F;
-    accent-color: var(--color);
+    accent-color: var(--dark);
 }
 
 .container{
