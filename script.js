@@ -1,10 +1,14 @@
-const size = 152;
-let damping = 0.975;
-let f = 500;
-let buffer1 = []
-let buffer2 = []
+const size = 202;
+let damping = 0.98;
+let T = 0.5;
+let inputSize = 1500;
+
+let buffer1 = [];
+let buffer2 = [];
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+let displayInterval;
+let inputInterval;
 start()
 
 function waveProcess() {
@@ -20,7 +24,7 @@ function waveProcess() {
     switchUp();
 }
 
-function start() {
+function start(isRandom = false) {
     for (let i = 0; i < size; i++) {
         buffer1[i] = [];
         buffer2[i] = [];
@@ -30,17 +34,22 @@ function start() {
         }
     }
     display(buffer2);
-    setInterval(waveProcess, 30);
-    setInterval(addInput, f)
+    displayInterval = setInterval(waveProcess, 30);
+    if(isRandom){
+        setInterval(addRInput, T*1000)
+    }
+    else{
+       inputInterval = setInterval(addInput, T*1000)
+    }
 }
 
 function display(buffer) {
     let imageData = ctx.createImageData(size, size);
     for (let i = 1; i < size-1; i++) {
         for (let j = 1; j < size-1; j++) {
-            let offsetX = buffer[i-1][j] - buffer[i+1][j];
-            let offsetY = buffer[i][j+1] - buffer[i][j-1];
-            let c = offsetX + offsetY;
+            let offsetX = buffer[i-1][j] + buffer[i+1][j];
+            let offsetY = buffer[i][j+1] + buffer[i][j-1];
+            let c = offsetX + offsetY
             let color = 0;
             if (!isNaN(c)) {color = c*Math.sign(c)}
             let index = 4*(i + j*size);
@@ -64,12 +73,22 @@ function switchUp() {
 }
 
 function addInput() {
-    buffer1[Math.floor(size * 3/5)][Math.floor(size * 2/5)] = 1000;
-    buffer1[Math.floor(size * 2/5)][Math.floor(size * 3/5)] = 1000;
+    buffer1[Math.floor(size * 3/5)][Math.floor(size * 2/5)] = inputSize;
+    buffer1[Math.floor(size * 2/5)][Math.floor(size * 3/5)] = inputSize;
 }
 
 function clear() {
+    clearInterval(displayInterval);
+    clearInterval(inputInterval);
     buffer1 = [];
     buffer2 = [];
     start();
+}
+
+
+function addRInput() {
+    let choordX = Math.floor(Math.random*size);
+    let choordY = Math.floor(Math.random*size);
+    console.log(buffer1[choordX][choordY]);
+    buffer1[choordX][choordY] = inputSize;
 }
