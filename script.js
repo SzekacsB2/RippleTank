@@ -1,16 +1,39 @@
-const size = 202;
+//wave properties
 let damping = 0.98;
 let T = 0.5;
-let inputSize = 1500;
+let A = 1500;
 
+//arrays holding the state of the water
+const size = 202;
 let buffer1 = [];
 let buffer2 = [];
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+
+//id-s of the intervals
 let displayInterval;
 let inputInterval;
-start()
 
+//controll options
+let displayCont = true;
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const displayRadios = document.querySelectorAll('input[name="display"]');
+for (const dRadio of displayRadios) {
+    dRadio.addEventListener('change', function(){
+        if (this.checked){
+            if (this.value == "true"){
+                displayCont = true;
+            }
+            else{
+                displayCont = false;
+            }
+        }
+    });
+}
+load();
+
+
+//func simulating wave patterns
 function waveProcess() {
     for (let i = 1; i < size-1; i++) {
         for (let j = 1; j < size-1; j++) {
@@ -24,25 +47,7 @@ function waveProcess() {
     switchUp();
 }
 
-function start(isRandom = false) {
-    for (let i = 0; i < size; i++) {
-        buffer1[i] = [];
-        buffer2[i] = [];
-        for (let j = 0; j < size; j++) {
-           buffer1[i][j] = 0.0;
-           buffer2[i][j] = 0.0;
-        }
-    }
-    display(buffer2);
-    displayInterval = setInterval(waveProcess, 30);
-    if(isRandom){
-        setInterval(addRInput, T*1000)
-    }
-    else{
-       inputInterval = setInterval(addInput, T*1000)
-    }
-}
-
+//func displaying the array holding the state of the water
 function display(buffer) {
     let imageData = ctx.createImageData(size, size);
     for (let i = 1; i < size-1; i++) {
@@ -51,7 +56,12 @@ function display(buffer) {
             let offsetY = buffer[i][j+1] + buffer[i][j-1];
             let c = offsetX + offsetY
             let color = 0;
-            if (!isNaN(c)) {color = c*Math.sign(c)}
+            if (displayCont) {
+                color = c;
+            }
+            else{
+               color = c*Math.sign(c);
+            }
             let index = 4*(i + j*size);
             imageData.data[index] = color;
             imageData.data[index+1] = color;
@@ -73,8 +83,14 @@ function switchUp() {
 }
 
 function addInput() {
-    buffer1[Math.floor(size * 3/5)][Math.floor(size * 2/5)] = inputSize;
-    buffer1[Math.floor(size * 2/5)][Math.floor(size * 3/5)] = inputSize;
+    buffer1[Math.floor(size * 3/5)][Math.floor(size * 2/5)] = A;
+    buffer1[Math.floor(size * 2/5)][Math.floor(size * 3/5)] = A;
+}
+
+function addRInput() {
+    let choordX = 25 + Math.floor(Math.random()*(size-50));
+    let choordY = 25 + Math.floor(Math.random()*(size-50));
+    buffer1[choordX][choordY] = A;
 }
 
 function clear() {
@@ -85,10 +101,21 @@ function clear() {
     start();
 }
 
-
-function addRInput() {
-    let choordX = Math.floor(Math.random*size);
-    let choordY = Math.floor(Math.random*size);
-    console.log(buffer1[choordX][choordY]);
-    buffer1[choordX][choordY] = inputSize;
+function load() {
+    for (let i = 0; i < size; i++) {
+        buffer1[i] = [];
+        buffer2[i] = [];
+        for (let j = 0; j < size; j++) {
+           buffer1[i][j] = 0.0;
+           buffer2[i][j] = 0.0;
+        }
+    }
+    display(buffer2);
+    displayInterval = setInterval(waveProcess, 30);
+    if(false){
+        setInterval(addRInput, T*1000)
+    }
+    else{
+       inputInterval = setInterval(addInput, T*1000)
+    }
 }

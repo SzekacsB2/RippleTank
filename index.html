@@ -10,11 +10,38 @@
 <body>
     <div class="container">
         <canvas id="canvas" width="200px" height="200px" class="canvas">HTML5 Canvas not supported</canvas>
-        <div>
-            <form>
-                <input type="radio">
-                <input type="button" onclick="clear()" value="clear">
-            </form>
+        <div class="controlls">
+            <table class="cont-table">
+                <tbody>
+                    <tr>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Render mode:</h3>
+                            <input type="radio" name="display" id="correct" value="true" checked>
+                            <label for="correct">correct</label> <br>
+                            <input type="radio" name="display" id="boosted" value="false">
+                            <label for="boosted">white boosted</label>
+                        </td>
+                        <td>
+                            <h3>Input mode:</h3>
+                            <input type="radio" name="input" id="fixed" value="f" checked>
+                            <label for="fixed">fixed</label> <br>
+                            <input type="radio" name="input" id="random" value="r">
+                            <label for="random">random</label> <br>
+                            <input type="radio" name="input" id="user" value="u">
+                            <label for="user">on click</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <input type="radio" name="aa">
+            <input type="button" onclick="clear()" value="clear">
         </div>
     </div>
     
