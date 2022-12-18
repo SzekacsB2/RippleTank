@@ -7,6 +7,7 @@ body{
     --dark: #434242;
     --white: #F3EFE0;
     --color: #22A39F;
+    accent-color: var(--color);
 }
 
 .container{
@@ -32,14 +33,32 @@ body{
     color: var(--white);
 }
 .cont-table{
-    width: 250px;
+    width: 280px;
     height: 200px;
 }
-
-table{
-    background-color: blue;
+.b-input{
+    background-color: var(--dark);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px 10px 15px;
+    font-size: 15px;
+    margin: 0 5px 0 10px;
 }
-td{
-    border: 1px solid red;
-    vertical-align: top;
+.controlls h3{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px;
+}
+.controlls label{
+    font-size: 12px;
+}
+.n-input{
+    width: 40px;
+    margin: 0 8px 0 0;
+    padding: 5px;
+    background-color: var(--dark);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
 }

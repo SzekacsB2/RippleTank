@@ -15,46 +15,43 @@
                 <tbody>
                     <tr>
                         <td colspan="2">
-                            <input type="button" name="pause" id="pause" value="pause">
-                            <input type="button" name="reload" id="reload" value="restart">
+                            <input class="b-input" type="button" name="pause" id="pause" value="pause">
+                            <input class="b-input" type="button" name="reload" id="reload" value="restart">
+                            <input class="b-input" type="button" name="reset" id="reset" value="reset">
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <h3>Render mode:</h3>
-                            <input type="radio" name="display" id="correct" value="true" checked>
+                            <input   type="radio" name="display" id="correct" value="true" checked>
                             <label for="correct">correct</label> <br>
-                            <input type="radio" name="display" id="boosted" value="false">
+                            <input   type="radio" name="display" id="boosted" value="false">
                             <label for="boosted">white boosted</label>
                         </td>
                         <td>
                             <h3>Input mode:</h3>
-                            <input type="radio" name="input" id="fixed" value="f" checked>
+                            <input   type="radio" name="input" id="fixed" value="f" checked>
                             <label for="fixed">fixed</label> <br>
-                            <input type="radio" name="input" id="random" value="r">
+                            <input   type="radio" name="input" id="random" value="r">
                             <label for="random">random</label> <br>
-                            <input type="radio" name="input" id="user" value="u">
+                            <input   type="radio" name="input" id="user" value="u">
                             <label for="user">on click</label>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <label for="T">T:</label>
-                            <input type="number" id="T" name="T" step="0.1" value="0.5" min="0">
+                            <input class="n-input" type="number" id="T" name="T" step="0.1" value="0.5" min="0">
                             <label for="A">A:</label>
-                            <input type="number" id="A" name="A" step="1" value="15" min="0">
+                            <input class="n-input" type="number" id="A" name="A" step="1" value="15" min="0">
                             <label for="damping">damping:</label>
-                            <input type="number" id="damping" name="damping" step="0.05" value="0.98" max="1" min="0">
+                            <input class="n-input" type="number" id="damping" name="damping" step="0.05" value="0.98" max="1" min="0">
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    
-
-
-    
 </body>
 <script src="script.js"></script>
 </html>

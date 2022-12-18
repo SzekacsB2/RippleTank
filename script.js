@@ -56,6 +56,9 @@ const pauseBtn = document.getElementById('pause').addEventListener('click', func
 const reloadBtn = document.getElementById('reload').addEventListener('click', function(){
     reload();
 });
+const resetBtn = document.getElementById('reset').addEventListener('click', function(){
+    location.reload();
+});
 const TInput = document.getElementById('T').addEventListener('change', function(){
     T = this.value;
     reload();
