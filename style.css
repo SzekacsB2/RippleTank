@@ -1,5 +1,6 @@
 body{
     background-color: var(--black);
+    font-family: Helvetica, sans-serif;
     user-select: none;
 }
 :root{
