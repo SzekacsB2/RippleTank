@@ -68,7 +68,8 @@ const AInput = document.getElementById('A').addEventListener('change', function(
     reload();
 });
 const DampingInput = document.getElementById('damping').addEventListener('change', function(){
-    damping = this.value;
+    if (0 <= this.value <= 1)
+    damping = 1-this.value;
     reload();
 });
 
