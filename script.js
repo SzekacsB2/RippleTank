@@ -14,12 +14,20 @@ let inputInterval;
 
 //controll options
 let displayCont = true;
+let inputCont = "f";
+let userICont = false;
 
+//onload events
 const canvas = document.getElementById("canvas");
+canvas.addEventListener('click', function(e){
+    if (userICont){
+        addUInput(canvas, e)
+    }
+});
 const ctx = canvas.getContext("2d");
 const displayRadios = document.querySelectorAll('input[name="display"]');
 for (const dRadio of displayRadios) {
-    dRadio.addEventListener('change', function(){
+    dRadio.addEventListener("change", function(){
         if (this.checked){
             if (this.value == "true"){
                 displayCont = true;
@@ -30,6 +38,25 @@ for (const dRadio of displayRadios) {
         }
     });
 }
+const inputRadios = document.querySelectorAll('input[name="input"]');
+for (const iRadio of inputRadios) {
+    iRadio.addEventListener('change', function(){
+        if(this.checked){
+            inputCont = this.value;
+            userICont = false;
+            reload();
+        }
+    });
+}
+const pauseBtn = document.getElementById('pause').addEventListener('click', function(){
+    clearInterval(displayInterval);
+    clearInterval(inputInterval);
+    userICont = false;
+});
+const reloadBtn = document.getElementById('reload').addEventListener('click', function(){
+    reload();
+});
+
 load();
 
 
@@ -88,17 +115,24 @@ function addInput() {
 }
 
 function addRInput() {
-    let choordX = 25 + Math.floor(Math.random()*(size-50));
-    let choordY = 25 + Math.floor(Math.random()*(size-50));
-    buffer1[choordX][choordY] = A;
+    let x = 25 + Math.floor(Math.random()*(size-50));
+    let y = 25 + Math.floor(Math.random()*(size-50));
+    buffer1[x][y] = A;
 }
 
-function clear() {
+function addUInput(canvas, event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor(event.clientX - rect.left);
+    const y =  Math.floor(event.clientY - rect.top);
+    buffer1[x][y] = A;
+}
+
+function reload() {
     clearInterval(displayInterval);
     clearInterval(inputInterval);
     buffer1 = [];
     buffer2 = [];
-    start();
+    load()
 }
 
 function load() {
@@ -112,10 +146,16 @@ function load() {
     }
     display(buffer2);
     displayInterval = setInterval(waveProcess, 30);
-    if(false){
-        setInterval(addRInput, T*1000)
-    }
-    else{
-       inputInterval = setInterval(addInput, T*1000)
+    switch (inputCont) {
+        case "f":
+            inputInterval = setInterval(addInput, T*1000);
+            break;
+        case "r":
+            inputInterval = setInterval(addRInput, T*1000);
+            break;
+        case "u":
+            userICont = true;
+        default:
+            break;
     }
 }
