@@ -56,6 +56,18 @@ const pauseBtn = document.getElementById('pause').addEventListener('click', func
 const reloadBtn = document.getElementById('reload').addEventListener('click', function(){
     reload();
 });
+const TInput = document.getElementById('T').addEventListener('change', function(){
+    T = this.value;
+    reload();
+});
+const AInput = document.getElementById('A').addEventListener('change', function(){
+    A = this.value*100;
+    reload();
+});
+const DampingInput = document.getElementById('damping').addEventListener('change', function(){
+    damping = this.value;
+    reload();
+});
 
 load();
 
